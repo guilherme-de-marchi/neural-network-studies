@@ -22,21 +22,24 @@ func (p *Perceptron) Predict(x float64) float64 {
 	*/
 
 	return 1 / (1 + math.Pow(math.E, -(p.Weight*x+p.Bias)))
-	//return p.Weight*x + p.Bias
 }
 
 func (p *Perceptron) Train(x, y float64) {
 	/*y represents the expected value for the prediction of x*/
 
 	prediction := p.Predict(x)
-	//cost := math.Pow((y - prediction), 2) // cost = (y-y_predicted)^2
+
+	//cost := math.Pow((y - prediction), 2)
 	p.Weight = p.Weight - p.LearningRate*(-x*(y-prediction)) // w = w-learning_rate{-x[y-y_predicted]}
 	p.Bias = p.Bias - p.LearningRate*-(y-prediction)         // w = w-learning_rate[-(y-y_predicted)]
 }
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
+
 	p := NewPerceptron(.0001)
+
+	// Training sequence
 	for i := 0; i < 10000; i++ {
 		v := float64(rand.Intn(1000+1000) - 1000)
 		var y float64
@@ -45,7 +48,9 @@ func main() {
 		} else {
 			y = 0
 		}
+
 		p.Train(v, y)
+
 	}
 	for {
 		var v float64
