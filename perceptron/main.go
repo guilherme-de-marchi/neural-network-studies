@@ -43,6 +43,7 @@ func main() {
 	for i := 0; i < 10000; i++ {
 		v := float64(rand.Intn(1000+1000) - 1000)
 		var y float64
+		// Positive numbers return 1, and negative, 0
 		if v >= 0 {
 			y = 1
 		} else {
