@@ -1,10 +1,8 @@
-package main
+package perceptron
 
 import (
-	"fmt"
 	"math"
 	"math/rand"
-	"time"
 )
 
 type Perceptron struct {
@@ -32,40 +30,4 @@ func (p *Perceptron) Train(x, y float64) {
 	//cost := math.Pow((y - prediction), 2)
 	p.Weight = p.Weight - p.LearningRate*(-x*(y-prediction)) // w = w-learning_rate{-x[y-y_predicted]}
 	p.Bias = p.Bias - p.LearningRate*-(y-prediction)         // w = w-learning_rate[-(y-y_predicted)]
-}
-
-func main() {
-	rand.Seed(time.Now().UnixNano())
-
-	p := NewPerceptron(.0001)
-
-	// Training sequence
-	for i := 0; i < 10000; i++ {
-		v := float64(rand.Intn(1000+1000) - 1000)
-		var y float64
-		// Positive numbers return 1, and negative, 0
-		if v >= 0 {
-			y = 1
-		} else {
-			y = 0
-		}
-
-		p.Train(v, y)
-
-	}
-	for {
-		var v float64
-		fmt.Scan(&v)
-		var r string
-		var accuracy float64
-		prediction := p.Predict(v)
-		if prediction >= .5 {
-			r = "positive"
-			accuracy = prediction * 100
-		} else {
-			r = "negative"
-			accuracy = (1 - prediction) * 100
-		}
-		fmt.Println("it's", r, "\nAccuracy:", accuracy, "%\n")
-	}
 }
