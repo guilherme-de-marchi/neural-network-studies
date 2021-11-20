@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	examples.PositiveNegative()
+	//examples.SinglePosNeg()
+	examples.MultiPosNeg()
 }

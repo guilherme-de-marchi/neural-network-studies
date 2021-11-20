@@ -5,13 +5,14 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/Guilherme-De-Marchi/neural-network-studies/activation"
 	"github.com/Guilherme-De-Marchi/neural-network-studies/perceptron"
 )
 
-func PositiveNegative() {
+func SinglePosNeg() {
 	rand.Seed(time.Now().UnixNano())
 
-	p := perceptron.NewPerceptron(.0001)
+	p := perceptron.NewPerceptron(1, .0001)
 
 	// Training sequence
 	for i := 0; i < 10000; i++ {
@@ -24,7 +25,7 @@ func PositiveNegative() {
 			y = 0
 		}
 
-		p.Train(v, y)
+		p.Train([]float64{v}, y, activation.Sigmoid)
 
 	}
 	for {
@@ -32,7 +33,7 @@ func PositiveNegative() {
 		fmt.Scan(&v)
 		var r string
 		var accuracy float64
-		prediction := p.Predict(v)
+		prediction := p.Predict([]float64{v}, activation.Sigmoid)
 		if prediction >= .5 {
 			r = "positive"
 			accuracy = prediction * 100
